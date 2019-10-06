@@ -5,6 +5,21 @@ module.exports = {
         const { username } = req.body;
 
         const response =  await axios.get(`https://api.github.com/users/${username}`);
-        return res.json(response.data);
+
+
+        const { bio, name, avatar_url: avatar } = response.data
+
+
+
+        const dev = await Dev.create({
+            name: name,
+            user: username,
+            bio: bio,
+            avatar: avatar
+        })
+
+
+
+        return res.json(dev);
     }
 };
