@@ -1,14 +1,18 @@
-.login-conteiner{
-    height: 100%;
+ .login-conteiner{
+    height: 100vh;
+    width: 100vw;
     display: flex;
-    justify-content: center;
+    text-align: center;
+    background: #6C7A89;
     align-items: center;
+    justify-content: center;
+    flex-direction: row;
 }
 
 .login-conteiner form{
     width: 100%;
     max-width: 300px;
-    display: inline;
+    display: flex;
     flex-direction: column;
 }
 
