@@ -13,7 +13,7 @@ export default function Login({history}) {
         })
         console.log(response);
         const {_id } = response.data;
-        history.push(`/devs/${_id }`);
+        history.push(`/devs/${_id}`);
     }
     return (
         <div className="login-conteiner">
