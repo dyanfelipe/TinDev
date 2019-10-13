@@ -29,26 +29,24 @@ export default function Main({ match }) {
         <div className="main-container">
             <img src={logo} alt="Tindev" />
             <ul>
-                {users.map(user => {
-                    return (
-                        <li>
-                            <img src={user.avatar} alt={user.name}/>
-                            <footer>
-                                <strong>{user.name}</strong>
-                                <p>{user.bio}</p>
-                            </footer>
+                {users.map(user => (
+                    <li>
+                        <img src={user.avatar} alt={user.name} />
+                        <footer>
+                            <strong>{user.name}</strong>
+                            <p>{user.bio}</p>
+                        </footer>
 
-                            <div className="buttons">
-                                <button type="button">
-                                    <img src={dislike} alt="Dislike" />
-                                </button>
-                                <button type="button">
-                                    <img src={like} alt="Dislike" />
-                                </button>
-                            </div>
-                        </li>
-                    )
-                })}
+                        <div className="buttons">
+                            <button type="button">
+                                <img src={dislike} alt="Dislike" />
+                            </button>
+                            <button type="button">
+                                <img src={like} alt="Dislike" />
+                            </button>
+                        </div>
+                    </li>
+                ))}
 
 
             </ul>
