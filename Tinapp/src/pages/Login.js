@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-community/async-storage';
 import logo from '../assets/logo.png';
 import api from '../services/api';
 
@@ -22,7 +22,7 @@ export default function Login({ navigation }) {
 
     await AsyncStorage.setItem('user', _id);
 
-    navigation.navigate('Main', { _id });
+    navigation.navigate('Main', { user: _id });
   }
 
   return (
