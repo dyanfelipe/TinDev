@@ -24,11 +24,21 @@ export default function Main({ navigation }) {
     loadUsers();
   }, [id]);
 
-  async function handlelike(id) {
-    await api.post(`/devs/MDQ6VXNlcjIyNTQ3MzE=/likes`, null, {
+  async function handlelike() {
+    const [user, ...rest] = users;
+
+    await api.post(`/devs/${user._id}/likes`, null, {
       headers: { user: id },
     });
-    setUsers(users.filter(user => user._id !== id));
+    setUsers(rest);
+  }
+
+  async function handleDislike() {
+    const [user, ...rest] = users;
+    await api.post(`/devs/${user._id}/dislikes`, null, {
+      headers: { user: id },
+    });
+    setUsers(rest);
   }
 
   async function handleLogout(params) {
@@ -57,14 +67,16 @@ export default function Main({ navigation }) {
             ))
           )}
       </View>
-      <View style={styles.BottonsConteiner}>
-        <TouchableOpacity style={styles.button}>
-          <Image source={dislike} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Image source={like} />
-        </TouchableOpacity>
-      </View>
+      {users.length > 0 && (
+        <View style={styles.BottonsConteiner}>
+          <TouchableOpacity style={styles.button} onPress={handleDislike}>
+            <Image source={dislike} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={handlelike}>
+            <Image source={like} />
+          </TouchableOpacity>
+        </View>
+      )}
     </SafeAreaView >
   );
 }
