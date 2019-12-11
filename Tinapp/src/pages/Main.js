@@ -12,7 +12,7 @@ import io from 'socket.io-client';
 export default function Main({ navigation }) {
   const id = navigation.getParam('user');
   const [users, setUsers] = useState([]);
-  const [matchDev, setMatchDev] = useState(true);
+  const [matchDev, setMatchDev] = useState(null);
 
   useEffect(() => {
     async function loadUsers() {
@@ -92,9 +92,9 @@ export default function Main({ navigation }) {
       {matchDev && (
         <View style={styles.matchConteiner}>
           <Image source={matchimage} />
-          <Image style={styles.Matchavatar} source={{ uri: 'https://avatars0.githubusercontent.com/u/32774948?s=460&v=4' }} />
-          <Text style={styles.matchName}>Name do usuario</Text>
-          <Text style={styles.matchBio}> descrição lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll</Text>
+          <Image style={styles.Matchavatar} source={{ uri: matchDev.avatar }} />
+          <Text style={styles.matchName}>{matchDev.name}</Text>
+          <Text style={styles.matchBio}> {matchDev.bio}</Text>
           <TouchableOpacity onPress={() => setMatchDev(null)}>
             <Text style={styles.closeMatch}>Fechar</Text>
           </TouchableOpacity>
@@ -178,6 +178,48 @@ const styles = StyleSheet.create({
     shadowOffset: {
       width: 0,
       height: 2,
-    }
+    },
+  },
+
+  matchConteiner: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  matchimage: {
+    height: 60,
+    resizeMode: 'contain',
+  },
+
+  Matchavatar: {
+    width: 160,
+    height: 160,
+    borderRadius: 80,
+    borderWidth: 5,
+    borderColor: '#fff',
+    marginVertical: 30,
+  },
+
+  matchName: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#FFF',
+  },
+  matchBio: {
+    marginTop: 10,
+    fontSize: 16,
+    color: 'rgba(255,255,255, 0.8)',
+    lineHeight: 24,
+    textAlign: 'center',
+    paddingHorizontal: 30,
+  },
+  closeMatch: {
+    fontSize: 16,
+    color: 'rgba(255,255,255, 0.8)',
+    textAlign: 'center',
+    marginTop: 30,
+    fontWeight: 'bold',
   },
 });
