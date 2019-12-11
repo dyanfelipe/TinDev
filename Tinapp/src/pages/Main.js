@@ -6,10 +6,13 @@ import like from '../assets/like.png';
 import dislike from '../assets/dislike.png';
 import api from '../services/api';
 import AsyncStorage from '@react-native-community/async-storage';
+import matchimage from '../assets/itsamatch.png';
+import io from 'socket.io-client';
 
 export default function Main({ navigation }) {
   const id = navigation.getParam('user');
   const [users, setUsers] = useState([]);
+  const [matchDev, setMatchDev] = useState(true);
 
   useEffect(() => {
     async function loadUsers() {
@@ -22,6 +25,15 @@ export default function Main({ navigation }) {
     }
 
     loadUsers();
+  }, [id]);
+
+  useEffect(() => {
+    const socket = io('http://localhost:3333', {
+      query: { users: id }
+    });
+    socket.on('match', dev => {
+      setMatch(dev)
+    })
   }, [id]);
 
   async function handlelike() {
@@ -58,8 +70,8 @@ export default function Main({ navigation }) {
           : (
             users.map((user, index) => (
               <View key={user._id} style={[styles.card, { zIndex: users.length - index }]}>
-                <Image style={styles.avatar} source={{ uri: user.avatar }} />
                 <View style={styles.footer}>
+                  <Image style={styles.avatar} source={{ uri: user.avatar }} />
                   <Text style={styles.name}>{user.name}</Text>
                   <Text style={styles.bio} numberOfLines={3}>{user.bio}</Text>
                 </View>
@@ -74,6 +86,17 @@ export default function Main({ navigation }) {
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handlelike}>
             <Image source={like} />
+          </TouchableOpacity>
+        </View>
+      )}
+      {matchDev && (
+        <View style={styles.matchConteiner}>
+          <Image source={matchimage} />
+          <Image style={styles.Matchavatar} source={{ uri: 'https://avatars0.githubusercontent.com/u/32774948?s=460&v=4' }} />
+          <Text style={styles.matchName}>Name do usuario</Text>
+          <Text style={styles.matchBio}> descrição lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll</Text>
+          <TouchableOpacity onPress={() => setMatchDev(null)}>
+            <Text style={styles.closeMatch}>Fechar</Text>
           </TouchableOpacity>
         </View>
       )}
